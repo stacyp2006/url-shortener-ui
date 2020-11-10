@@ -44,4 +44,27 @@ describe('App', () => {
     expect(screen.getByText("http://localhost:3001/useshorturl/3")).toBeInTheDocument();
     expect(screen.getByText("https://64.media.tumblr.com/0aeb35a5bd33b578e581f9aa6cfbcfeb/tumblr_nwlo44PbQN1qjobupo1_1280.png")).toBeInTheDocument();
   })
+
+  it('should render a new url to the dom after user supplies info', async () => {
+
+    addUrl.mockResolvedValue({
+      id: 15,
+      title: 'Fake',
+      long_url: 'verylongurlthisissolong.com',
+      short_url: 'short.com'
+    })
+
+    render(<App />)
+
+    userEvent.type(screen.getByPlaceholderText('Title...'), 'Fake');
+    userEvent.type(screen.getByPlaceholderText('URL to Shorten...'), 'verylongurlthisissolong.com');
+    expect(screen.getByPlaceholderText('URL to Shorten...')).toHaveValue('verylongurlthisissolong.com');
+    expect(screen.getByPlaceholderText('Title...')).toHaveValue('Fake');
+    userEvent.click(screen.getByText('Shorten Please!'))
+    const title = await waitFor(() => screen.getByText('Fake'))
+    expect(title).toBeInTheDocument()
+    expect(screen.getByText('verylongurlthisissolong.com')).toBeInTheDocument()
+    expect(screen.getByText('short.com')).toBeInTheDocument();
+
+  })
 })
