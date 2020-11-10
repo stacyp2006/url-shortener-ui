@@ -1,7 +1,6 @@
 import React from 'react';
 import UrlContainer from './UrlContainer';
-import { render, screen, waitFor } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 
 describe('UrlContainer', () => {

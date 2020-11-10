@@ -3,9 +3,6 @@ import UrlForm from './UrlForm';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
-// import { addUrl } from '../../apiCalls.js';
-// jest.mock('../../apiCalls.js');
-
 
 describe('UrlForm', () => {
 
@@ -43,7 +40,6 @@ describe('UrlForm', () => {
     expect(screen.getByPlaceholderText('URL to Shorten...')).toHaveValue("verylongurl.com");
     expect(screen.getByPlaceholderText('Title...')).toHaveValue("test");
     userEvent.click(screen.getByText('Shorten Please!'))
-    // expect(mockAddNewUrl).toHaveBeenCalledWith("test", "verylongurl.com");
     expect(mockAddNewUrl).toHaveBeenCalledTimes(1)
 
   })
