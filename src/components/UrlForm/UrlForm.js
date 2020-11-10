@@ -18,10 +18,6 @@ class UrlForm extends Component {
     e.preventDefault();
     const urlInfo = { long_url: this.state.urlToShorten, title: this.state.title }
     await addUrl(urlInfo)
-    .then(data => this.setState({
-      title: data.title,
-      urlToShorten: data.long_url
-    }))
     .then(data => this.createUrl())
     .catch(error => this.setState({error: error.message}))
     this.clearInputs();
