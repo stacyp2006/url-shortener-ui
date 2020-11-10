@@ -10,3 +10,4 @@ export const addUrls = (urlInfo) => {
     body: JSON.stringify(urlInfo)
   });
   .then(response => response.json())
+}
