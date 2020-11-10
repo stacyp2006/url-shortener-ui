@@ -5,8 +5,8 @@ import UrlContainer from '../UrlContainer/UrlContainer';
 import UrlForm from '../UrlForm/UrlForm';
 
 export class App extends Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = {
       urls: []
     }
@@ -19,8 +19,9 @@ export class App extends Component {
       ]
     })
   }
-  componentDidMount() {
-    getUrls()
+  
+  componentDidMount = async () => {
+    await getUrls()
     .then(data => this.setState({urls: data.urls}))
     .catch(error => console.log('url fetch error'))
   }

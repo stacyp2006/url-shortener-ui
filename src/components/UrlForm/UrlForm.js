@@ -14,16 +14,23 @@ class UrlForm extends Component {
     this.setState({ [e.target.name]: e.target.value });
   }
 
-  handleSubmit = e => {
+  handleSubmit = async e => {
     e.preventDefault();
     const urlInfo = { long_url: this.state.urlToShorten, title: this.state.title }
-    addUrl(urlInfo)
+    await addUrl(urlInfo)
     .then(data => this.setState({
       title: data.title,
       urlToShorten: data.long_url
     }))
+    .then(data => this.createUrl())
     .catch(error => this.setState({error: error.message}))
     this.clearInputs();
+  }
+
+  createUrl = () => {
+    const { addNewUrl } = this.props;
+    let newUrl = this.state;
+    addNewUrl(newUrl);
   }
 
   clearInputs = () => {
