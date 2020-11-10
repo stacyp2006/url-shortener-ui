@@ -3,8 +3,8 @@ import UrlForm from './UrlForm';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
-import { addUrl } from '../../apiCalls.js';
-jest.mock('../../apiCalls.js');
+// import { addUrl } from '../../apiCalls.js';
+// jest.mock('../../apiCalls.js');
 
 
 describe('UrlForm', () => {
@@ -34,26 +34,17 @@ describe('UrlForm', () => {
   })
 
   it('should invoke a function on button click', () => {
-    addUrl.mockResolvedValueOnce({
-      id: 14,
-      long_url: "https://64.media.tumblr.com/96ddaa969d55d03d414b7bb70fd545f3/tumblr_n0w788ke6O1qjbj98o1_r1_500.png",
-      short_url: "http://localhost:3001/useshorturl/14",
-      title: "test"
-    })
-
-    const mockNewUrl = {
-      long_url: "https://64.media.tumblr.com/96ddaa969d55d03d414b7bb70fd545f3/tumblr_n0w788ke6O1qjbj98o1_r1_500.png",
-      title: "test"
-    }
-
     render(
       <UrlForm addNewUrl={mockAddNewUrl}/>
     )
 
-    const addTo = screen.getByText('Shorten Please!')
-    userEvent.click(addTo)
-    // expect(mockAddNewUrl).toHaveBeenCalledWith(mockNewUrl)
-    expect(mockAddNewUrl).toHaveBeenCalled()
+    userEvent.type(screen.getByPlaceholderText('Title...'), "test");
+    userEvent.type(screen.getByPlaceholderText('URL to Shorten...'), "verylongurl.com");
+    expect(screen.getByPlaceholderText('URL to Shorten...')).toHaveValue("verylongurl.com");
+    expect(screen.getByPlaceholderText('Title...')).toHaveValue("test");
+    userEvent.click(screen.getByText('Shorten Please!'))
+    // expect(mockAddNewUrl).toHaveBeenCalledWith("test", "verylongurl.com");
+    expect(mockAddNewUrl).toHaveBeenCalledTimes(1)
 
   })
 })
