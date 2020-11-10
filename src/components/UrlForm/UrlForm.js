@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { addUrl } from '../../apiCalls';
 
 class UrlForm extends Component {
   constructor(props) {
