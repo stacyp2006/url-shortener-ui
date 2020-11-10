@@ -9,5 +9,5 @@ export const addUrl = (urlInfo) => {
     headers: {"Content-Type": "application/json"},
     body: JSON.stringify(urlInfo)
   })
-.then(response => response.json())
+  .then(response => response.json())
 }
